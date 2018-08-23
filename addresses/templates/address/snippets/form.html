@@ -1,0 +1,9 @@
+<form method="POST" action={% if action_url %}{{ action_url }}{% endif %}> {% csrf_token %}
+    {{ form.as_p }}
+    {% if next_url %}
+    <input type="hidden" name="next" value="{{ next_url }}"/>
+    <input type="hidden" name="form_type" value="{{ form_type }}"/>
+    <input type="hidden" name="device_id" value="{{ device_id }}"/>
+    {% endif %}
+    <button class="btn btn-default" type="submit">Submit</button>
+</form>
