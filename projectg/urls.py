@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from devices.views import deviceRegister,deviceView,slot_weight_endpoint,set_device_active_view
+from devices.views import deviceRegister,deviceView,slot_weight_endpoint,set_device_active_view,slot_fill_form
 from addresses.views import regiteration_view
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', regiteration_view,name='registration'),
+    path('register/slot/', slot_fill_form,name='slot-form'),
     path('slot/filling/', slot_weight_endpoint, name='slot-endpoint'),
     path('device/set_active/', set_device_active_view, name='active-endpoint'),
     path('home/', deviceView, name='home'),

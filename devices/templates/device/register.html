@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% url 'registration' as action_url %}
+
 <div class="container">
 
-
     <h3>{{ dev.device_id }}</h3>
-
-    {% if contact_form %}
-        <h1>Contact Form</h1>
-
-        {% include 'address/snippets/form.html' with form=contact_form action_url=action_url next_url=next_url device_id=dev.id form_type='contact' %}
-
+    {% if not dev.slot_grocery %}
+        {% url 'slot-form' as action_url %}
+        {% include "snippets/slot_form.html" with slots=dev.slot_set.all action_url=action_url %}
     {% else %}
-        {% if address_form %}
-        <h1>Address Form</h1>
-        {% include 'address/snippets/form.html' with form=address_form action_url=action_url next_url=next_url device_id=dev.id form_type='address' %}
+    {% url 'registration' as action_url %}
+        {% if contact_form %}
+            <h1>Contact Form</h1>
+
+            {% include 'address/snippets/form.html' with form=contact_form action_url=action_url next_url=next_url device_id=dev.id form_type='contact' %}
+
         {% else %}
-            <h1> Registration Done!! </h1>
+            {% if address_form %}
+            <h1>Address Form</h1>
+            {% include 'address/snippets/form.html' with form=address_form action_url=action_url next_url=next_url device_id=dev.id form_type='address' %}
+            {% else %}
+                <h1> Registration Done!! </h1>
+            {% endif %}
         {% endif %}
     {% endif %}
-
 
 
 

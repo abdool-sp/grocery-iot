@@ -10,6 +10,10 @@ from addresses.forms import ContactForm,AddressForm
 # Register a device
 
 
+def slot_fill_form(request):
+    print(request.POST)
+    return HttpResponse("ok")
+
 def deviceView(request):
     device_id = request.POST.get('device_id')   # device_id from form
     context = None
@@ -31,6 +35,9 @@ def deviceView(request):
 
 def deviceRegister(request, device_id):
     dev = Device.objects.filter(device_id=device_id).first()
+
+    grocery_vals = dev.slot_grocery()
+
 
     dev_address,dev_contact = dev.has_related_object()
     addressForm = None

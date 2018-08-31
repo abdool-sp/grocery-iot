@@ -60,6 +60,15 @@ class Device(models.Model):
         }
         return obj[self.dev_type]
 
+    def slot_grocery(self):
+        slots = self.slot_set.all()
+        if slots.exists():
+            for slot in slots:
+                if not slot.has_grocery():
+                    return False
+
+        return True
+
 
 class Slot(models.Model):
     device              =   models.ForeignKey(Device,on_delete=models.CASCADE)
@@ -70,6 +79,11 @@ class Slot(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.device.device_id, self.slot_number)
+
+    def has_grocery(self):
+        if self.grocery_name:
+            return True
+        return False
 
 
 
